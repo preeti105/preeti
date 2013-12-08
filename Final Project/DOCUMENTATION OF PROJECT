@@ -1,0 +1,476 @@
+DOCUMENTATION
+
+Imports System.Data.OleDb
+
+Public Class downloads
+    Dim con As OleDbConnection
+    Dim cmd As OleDbCommand = New OleDbCommand
+    Dim reader As OleDbDataReader
+    Dim cmd1 As OleDbCommand = New OleDbCommand
+    Dim STR As String
+    'Dim I As Integer = 0
+   Private Sub Form10_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        'con.Close()
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+       
+    End Sub
+
+    Private Sub TextBox1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox1.TextChanged
+       
+    End Sub
+
+    Private Sub Button1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Me.Close()
+    End Sub
+
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+        con = New OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0; Data Source=C:\Documents and Settings\205112035\My Documents\Visual Studio 2010\Projects\WindowsApplication1\Classes.mdb")
+        con.Open()
+        cmd.Connection = con
+        cmd.CommandText = "select * from ENTRYOFDATA where D_ID='" + TextBox2.Text + "'"
+
+
+        reader = cmd.ExecuteReader
+        If reader.Read = True Then
+            MsgBox(cmd.CommandText)
+            TextBox1.Text = reader(1).ToString
+            con.Close()
+        End If
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        Form12.Show()
+        Me.Hide()
+    End Sub
+End Class
+Imports System.Data.OleDb
+Public Class Form11
+    Dim F1 As Form13 = New Form13
+    Private Sub Form11_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        i = 0
+        Connectiondb()
+        Sql = "Select * from FACULTYLOGIN where Username='" & TextBox1.Text & "' and Password='" & TextBox2.Text & "' "
+        cmd = New OleDbCommand(Sql, con)
+        reader = cmd.ExecuteReader()
+        While reader.Read()
+            i = 1
+        End While
+        If i > 0 Then
+
+            Me.Hide()
+            sessionuser = TextBox1.Text
+            Form13.Show()
+
+            'MessageBox.Show("Logged in", "Click open to enter details", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+        Else
+            MessageBox.Show("Invalid Username and Password! ", "Invalid Login Account", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If
+
+        Connection_close()
+    End Sub
+
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+
+        Me.Close()
+
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Form13.Show()
+        Me.Hide()
+    End Sub
+End Class
+
+
+
+
+Public Class Form12
+
+    Private Sub Form12_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+    End Sub
+
+
+    Private Sub MENUToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MENUToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub FACULTYLOGINToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FACULTYLOGINToolStripMenuItem.Click
+        Form11.Show()
+    End Sub
+
+    Private Sub STUDENTLOGINToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles STUDENTLOGINToolStripMenuItem.Click
+        login.Show()
+    End Sub
+End Class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Imports System.Data.OleDb
+Public Class Form13
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        i = 0
+        Connectiondb()
+
+
+        'cmd.Connection = con 
+        'Sql = " Insert into STUDENTINFORMATION(STUD_NAME,ROLLNO,DEPARTMENT,COURSE,YEAR) values('" & TextBox1.Text & "','" & TextBox5.Text & "','" & ComboBox1.Text & "','" & ComboBox2.Text & "','" & ComboBox3.Text & "')"
+        'cmd = New OleDbCommand(Sql, con)
+        cmd = New OleDbCommand("Insert Into FACULTYINFORMATION values('" & TextBox2.Text & "','" & TextBox3.Text & "','" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox6.Text & "')", con)
+        i = cmd.ExecuteNonQuery()
+
+        MsgBox("Record successfully saved", MsgBoxStyle.DefaultButton1)
+        Connection_close()
+    End Sub
+
+    Private Sub Form13_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        Form11.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+        form14.show()
+        Me.Hide()
+    End Sub
+End Class
+
+
+
+
+
+
+
+
+Imports System.Data.OleDb
+Public Class Form14
+
+    Private Sub Form14_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        i = 0
+        Connectiondb()
+
+
+        'cmd.Connection = con 
+        'Sql = " Insert into STUDENTINFORMATION(STUD_NAME,ROLLNO,DEPARTMENT,COURSE,YEAR) values('" & TextBox1.Text & "','" & TextBox5.Text & "','" & ComboBox1.Text & "','" & ComboBox2.Text & "','" & ComboBox3.Text & "')"
+        'cmd = New OleDbCommand(Sql, con)
+        cmd = New OleDbCommand("Insert Into ENTRYOFDATA(D_ID,DATA) values('" & TextBox2.Text & "', '" & TextBox1.Text & "')", con)
+        i = cmd.ExecuteNonQuery()
+
+        MsgBox("Record successfully saved", MsgBoxStyle.DefaultButton1)
+        Connection_close()
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        Me.Close()
+    End Sub
+End Class
+
+
+
+
+
+
+
+
+
+
+
+Imports System.Data.OleDb
+Public Class Form6
+   
+    
+
+    Private Sub Form6_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        
+    End Sub
+
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
+        i = 0
+        Connectiondb()
+       
+
+        'cmd.Connection = con 
+        'Sql = " Insert into STUDENTINFORMATION(STUD_NAME,ROLLNO,DEPARTMENT,COURSE,YEAR) values('" & TextBox1.Text & "','" & TextBox5.Text & "','" & ComboBox1.Text & "','" & ComboBox2.Text & "','" & ComboBox3.Text & "')"
+        'cmd = New OleDbCommand(Sql, con)
+        cmd = New OleDbCommand("Insert Into STUDENTINFORMATION values('" & TextBox1.Text & "','" & TextBox5.Text & "','" & ComboBox1.Text & "','" & ComboBox2.Text & "','" & ComboBox3.Text & "')", con)
+        i = cmd.ExecuteNonQuery()
+
+        MsgBox("Record successfully saved", MsgBoxStyle.DefaultButton1)
+        Connection_close()
+    End Sub
+   
+
+    Private Sub ComboBox2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBox2.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
+        Form7.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+        login.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub PictureBox1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles p1.Click
+
+    End Sub
+End Class
+
+
+
+
+Imports System.Data.OleDb
+Public Class Form7
+
+    Private Sub Form7_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load, ComboBox1.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
+        i = 0
+        Connectiondb()
+
+
+        'cmd.Connection = con 
+        'Sql = " Insert into STAFFINFORMATION(NAME,ID,DEPARTMENT,DESIGNATION) values('" & TextBox1.Text & "','" & TextBox5.Text & "','" & ComboBox1.Text & "','" & ComboBox2.Text & "','" & ComboBox3.Text & "')"
+        'cmd = New OleDbCommand(Sql, con)
+        cmd = New OleDbCommand("Insert Into STAFFINFORMATION values('" & TextBox1.Text & "','" & TextBox2.Text & "','" & ComboBox1.Text & "','" & TextBox4.Text & "')", con)
+        i = cmd.ExecuteNonQuery()
+
+        MsgBox("Record successfully saved", MsgBoxStyle.DefaultButton1)
+        Connection_close()
+    End Sub
+
+
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+        Form8.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
+        Form6.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub PictureBox1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox1.Click
+
+    End Sub
+End Class
+
+
+
+
+Imports System.Data.OleDb
+Public Class Form8
+
+    Private Sub Form8_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+    End Sub
+
+   
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
+        i = 0
+        Connectiondb()
+
+
+        'cmd.Connection = con 
+        'Sql = " Insert into STUDENTINFORMATION(STUD_NAME,ROLLNO,DEPARTMENT,COURSE,YEAR) values('" & TextBox1.Text & "','" & TextBox5.Text & "','" & ComboBox1.Text & "','" & ComboBox2.Text & "','" & ComboBox3.Text & "')"
+        'cmd = New OleDbCommand(Sql, con)
+        cmd = New OleDbCommand("Insert Into CLASSINFORMATION values('" & ComboBox1.Text & "','" & ComboBox2.Text & "')", con)
+        i = cmd.ExecuteNonQuery()
+
+        MsgBox("Record successfully saved", MsgBoxStyle.DefaultButton1)
+        Connection_close()
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        downloads.Show()
+        Me.Hide()
+
+    End Sub
+
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+        Form7.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub PictureBox1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox1.Click
+
+    End Sub
+End Class
+
+
+
+
+
+
+
+ublic Class Form9
+
+    Private Sub PictureBox1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
+
+    Private Sub Label3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        login.Show()
+
+    End Sub
+
+    Private Sub Form9_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub LOGINToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LOGINToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub StudentToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StudentToolStripMenuItem.Click
+        Form6.Show()
+        Me.Hide()
+
+    End Sub
+
+    Private Sub StaffinformationToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StaffinformationToolStripMenuItem.Click
+        Form7.Show()
+        Me.Hide()
+
+    End Sub
+End Class
+
+
+
+
+
+
+
+
+
+
+Imports System.Data.OleDb
+
+Public Class login
+    Dim F1 As Form6 = New Form6
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        i = 0
+        connectiondb()
+        Sql = "Select * from Login where Username='" & txtusername.Text & "' and Password='" & txtpassword.Text & "' "
+        cmd = New OleDbCommand(Sql, con)
+        reader = cmd.ExecuteReader()
+        While reader.Read()
+            i = 1
+        End While
+        If i > 0 Then
+
+            Me.Hide()
+            sessionuser = txtusername.Text
+            Form9.Show()
+            Me.Hide()
+            'MessageBox.Show("Logged in", "Click open to enter details", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+        Else
+            MessageBox.Show("Invalid Username and Password! ", "Invalid Login Account", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If
+        Connection_close()
+    End Sub
+
+    Private Sub login_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        connectiondb()
+        ' Sql = "Select * from Login"
+        'cmd = New OleDbCommand(Sql, con)
+        'reader = cmd.ExecuteReader()
+        'While reader.Read()
+        '    ComboBox1.Items.Add(reader(1))
+        'End While
+        connection_close()
+
+
+    End Sub
+
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Me.Close()
+
+    End Sub
+
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+        F1.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub GroupBox2_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GroupBox2.Enter
+
+    End Sub
+
+    Private Sub txtpassword_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtpassword.TextChanged
+
+    End Sub
+
+    Private Sub PictureBox1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox1.Click
+
+    End Sub
+End Class
+
+
+MAIN MODULE
+mports System.Data.OleDb
+Imports System.IO
+
+Module Classes
+    Public con As OleDbConnection
+    Public cmd As OleDbCommand
+    Public da As OleDbDataAdapter
+    Public Sql As String
+    Public reader As OleDbDataReader
+    Public connectionstring As String
+    Public i As Integer
+    Public sessionuser As String
+
+    Public Sub Connectiondb()
+        connectionstring = ("Provider=Microsoft.Jet.OLEDB.4.0; Data Source=C:\Documents and Settings\205112035\My Documents\Visual Studio 2010\Projects\WindowsApplication1\Classes.mdb")
+        con = New OleDbConnection(connectionstring)
+        Try
+            con.Open()
+        Catch ex As Exception
+            MsgBox("Cannot open connection")
+        End Try
+    End Sub
+
+    Public Sub Connection_close()
+        con = Nothing
+        cmd = Nothing
+    End Sub
+End Module
+
+
